@@ -1,7 +1,8 @@
 // TASK: import helper functions from utils
 // TASK: import initialData
 
-
+import {initialData} from "./initialData.js"
+import {getTasks, createNewTask, putTask, deleteTask} from "./utils/taskFunctions.js"
 /*************************************************************************************************************************************************
  * FIX BUGS!!!
  * **********************************************************************************************************************************************/
@@ -18,7 +19,15 @@ function initializeData() {
 
 // TASK: Get elements from the DOM
 const elements = {
-
+  headerBoardName: document.getElementById("header-board-name"),
+  columnDivs: document.querySelector(".column-div"),
+  editTaskModal: document.querySelector(".edit-task-modal-window"),
+  filterDiv: document.getElementById("filterDiv"),
+  hideSideBarBtn: document.getElementById("hide-side-bar-btn"),
+  showSideBarBtn: document.getElementById("show-side-bar-btn"),
+  themeSwitch: document.querySelector(".toggle-div"),
+  createNewTaskBtn: document.getElementById("add-new-task-btn"),
+  modalWindow: document.querySelector(".modal-window"),
 }
 
 let activeBoard = ""
@@ -31,7 +40,7 @@ function fetchAndDisplayBoardsAndTasks() {
   displayBoards(boards);
   if (boards.length > 0) {
     const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
-    activeBoard = localStorageBoard ? localStorageBoard ;  boards[0]; 
+    activeBoard = localStorageBoard ? localStorageBoard :  boards[0]; 
     elements.headerBoardName.textContent = activeBoard
     styleActiveBoard(activeBoard)
     refreshTasksUI();
@@ -47,7 +56,7 @@ function displayBoards(boards) {
     const boardElement = document.createElement("button");
     boardElement.textContent = board;
     boardElement.classList.add("board-btn");
-    boardElement.click()  { 
+    boardElement.click() { 
       elements.headerBoardName.textContent = board;
       filterAndDisplayTasksByBoard(board);
       activeBoard = board //assigns active board
