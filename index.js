@@ -48,7 +48,7 @@ function fetchAndDisplayBoardsAndTasks() {
     styleActiveBoard(activeBoard)} else {
       elements.headerBoardName.textContent = "Empty Boards"; //in case the board is empty, this message displays
     } 
-    }
+ }
 
   
 
@@ -56,18 +56,21 @@ function fetchAndDisplayBoardsAndTasks() {
 // TASK: Fix Bugs
 function displayBoards(boards) {
   const boardsContainer = document.getElementById("boards-nav-links-div");
-  boardsContainer.innerHTML = ''; // Clears the container
+  /* boardsContainer.innerHTML = ''; */ //! Clears the container, tried different method, check if it is okay
+  while (boardsContainer.firstChild) {
+    boardsContainer.removeChild(boardsContainer.firstChild); //clears the boards container more safely
+  }
   boards.forEach(board => {
     const boardElement = document.createElement("button");
     boardElement.textContent = board;
     boardElement.classList.add("board-btn");
-    boardElement.click() { 
+    boardElement.addEventListener("click", () => { //added an event listener
       elements.headerBoardName.textContent = board;
       filterAndDisplayTasksByBoard(board);
       activeBoard = board //assigns active board
       localStorage.setItem("activeBoard", JSON.stringify(activeBoard))
       styleActiveBoard(activeBoard)
-    };
+    });
     boardsContainer.appendChild(boardElement);
   });
 
