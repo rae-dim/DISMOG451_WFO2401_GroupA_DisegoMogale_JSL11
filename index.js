@@ -19,6 +19,8 @@ function initializeData() {
 initializeData()
 
 // TASK: Get elements from the DOM
+/* elements were retrieved using the search function. since "elements" is an object, searching for "element." would
+find the relevant elements  */
 const elements = {
   headerBoardName: document.getElementById("header-board-name"),
   columnDivs: document.querySelectorAll(".column-div"),
@@ -36,17 +38,19 @@ let activeBoard = ""
 // Extracts unique board names from tasks
 // TASK: FIX BUGS
 function fetchAndDisplayBoardsAndTasks() {
-  const tasks = getTasks();
+  const tasks = getTasks() || []; //in case tasks in empty, we are preventing an error by initializing an empty array in that case
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
   displayBoards(boards);
   if (boards.length > 0) {
     const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
-    activeBoard = localStorageBoard ? localStorageBoard :  boards[0]; 
+    activeBoard = localStorageBoard ? localStorageBoard :  boards[0]; //if board is empty, boards[0] would cause an error
     elements.headerBoardName.textContent = activeBoard
-    styleActiveBoard(activeBoard)
-    refreshTasksUI();
-  }
-}
+    styleActiveBoard(activeBoard)} else {
+      elements.headerBoardName.textContent = "Empty Boards"; //in case the board is empty, this message displays
+    } 
+    }
+
+  
 
 // Creates different boards in the DOM
 // TASK: Fix Bugs
