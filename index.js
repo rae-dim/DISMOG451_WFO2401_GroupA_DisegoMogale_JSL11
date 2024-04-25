@@ -244,9 +244,17 @@ function toggleSidebar(show) {
 }
 
 function toggleTheme() {
+  const lightThemeEnabled = elements.themeSwitch.checked; 
+  const themeState = lightThemeEnabled ? 'enabled' : 'disabled'; 
+  
+  localStorage.setItem('light-theme', themeState);
  
+  if (lightThemeEnabled) {
+    document.body.classList.add('light-theme');
+  } else {
+    document.body.classList.remove('light-theme');
+  }
 }
-
 
 
 function openEditTaskModal(task) {
