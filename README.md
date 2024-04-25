@@ -17,7 +17,7 @@ The purpose of this project was to debugg the code giveen of an Agile Board (Kan
 - ChatGPT
 
 # Links
-- 
+- https://www.loom.com/share/4ef9e79a754b4f068fdf1c3506e45f9c?sid=0c425da7-ed3b-4241-a766-04f9c2eee0b8
 
 ### [JSL11] Agile Board - Kanban Task Management App
 
