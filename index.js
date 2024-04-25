@@ -155,7 +155,7 @@ function addTaskToUI(task) {
   taskElement.textContent = task.title; // Modify as needed
   taskElement.setAttribute('data-task-id', task.id);
   
-  tasksContainer.appendChild(); 
+  tasksContainer.appendChild(taskElement); //append task element
 }
 
 
@@ -200,7 +200,8 @@ function setupEventListeners() {
 // Toggles tasks modal
 // Task: Fix bugs
 function toggleModal(show, modal = elements.modalWindow) {
-  modal.style.display = show ? 'block' : 'none'; 
+  const shouldShow = Boolean(show);
+  modal.style.display = shouldShow ? 'block' : 'none'; 
 }
 
 /*************************************************************************************************************************************************
