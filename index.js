@@ -209,12 +209,12 @@ function toggleModal(show, modal = elements.modalWindow) {
  * COMPLETE FUNCTION CODE
  * **********************************************************************************************************************************************/
 
-function addTask(event) {
-  event.preventDefault(); 
+function addTask(event) {  //functio adds new tasks based on the users input
+  event.preventDefault();  //allows custom handling of the form data by preventing default form submissions
 
   //Assign user input to the task object
     const task = {
-      // retrieves input feild values
+      // retrieves input feild values and creates a task object
       title: document.getElementById("title-input").value,
       board: elements.headerBoardName.textContent,
       status: document.getElementById("select-status").value,
@@ -223,29 +223,27 @@ function addTask(event) {
     };
     const newTask = createNewTask(task);
     if (newTask) {
-      addTaskToUI(newTask);
+      addTaskToUI(newTask); //if a new task is successfully created using the createNewwTask fuunction, it is added to the user interface
       toggleModal(false);
       elements.filterDiv.style.display = 'none'; // Also hide the filter overlay
       event.target.reset();
-      refreshTasksUI();
+      refreshTasksUI(); //updates the display of the board to reflect the new added tassk
     }
 }
 
 
 function toggleSidebar(show) {
   const sidebar = document.getElementById("side-bar-div");
-  if (show) {
-    sidebar.style.display = 'block'; //the sidebar is rendered as a block-level element, thus making it visible
-    elements.showSideBarBtn.style.display = "none"; //while the sidebar is in display, the button is hidden
-  } else {
-    sidebar.style.display = "none"; //sidebar element is hidden from view
-    elements.showSideBarBtn.style.display = "block"; //while the sidebar is hidden, the showSideBarButton comes into display by being rendered as a block level element
-  }
+  const showSideBarBtn  = elements.showSideBarBtn;
+  
+  elements.sidebar.style.display = show ? "block" : "none"; //the sidebar is rendered as a block-level element, thus making it visible else it is hidden
+  elements.showSideBarBtn.style.display = show? "none" : "block"; //while the sidebar is in display, the button is hidden, else it is displayed
+  
 }
 
 function toggleTheme() {
   const lightThemeEnabled = elements.themeSwitch.checked; 
-  const themeState = lightThemeEnabled ? 'enabled' : 'disabled'; 
+  const themeState = lightThemeEnabled ? 'enabled' + "./assets/logoo-light.svg" : 'disabled' + "./assets/logo-dark.svg"; 
   
   localStorage.setItem('light-theme', themeState);
  
@@ -259,7 +257,13 @@ function toggleTheme() {
 
 function openEditTaskModal(task) {
   // Set task details in modal inputs
-  
+  const title = document.getElementById('edit-task-title-input');
+  const description = document.getElementById('edit-task-desc-input');
+  const status = document.getElementById('edit-select-status');
+
+  title.value = task.title;
+  description.value = task.description;
+  status.value = task.status;
 
   // Get button elements from the task modal
 
