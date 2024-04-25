@@ -30,7 +30,8 @@ const elements = {
   showSideBarBtn: document.getElementById("show-side-bar-btn"),
   themeSwitch: document.getElementById("switch"),
   createNewTaskBtn: document.getElementById("add-new-task-btn"),
-  modalWindow: document.querySelector(".modal-window"),
+  modalWindow: document.getAnimations("new-task-modal-window"),
+  
 }
 
 let activeBoard = ""
@@ -213,6 +214,11 @@ function addTask(event) {
 
   //Assign user input to the task object
     const task = {
+      // retrieves input feild values
+      title: document.getElementById("title-input").value,
+      board: elements.headerBoardName.textContent,
+      status: document.getElementById("select-status").value,
+      description: document.getElementById("desc-input").value, 
       
     };
     const newTask = createNewTask(task);
@@ -227,7 +233,14 @@ function addTask(event) {
 
 
 function toggleSidebar(show) {
-  
+  const sidebar = document.getElementById("side-bar-div");
+  if (show) {
+    sidebar.style.display = 'block'; //the sidebar is rendered as a block-level element, thus making it visible
+    elements.showSideBarBtn.style.display = "none"; //while the sidebar is in display, the button is hidden
+  } else {
+    sidebar.style.display = "none"; //sidebar element is hidden from view
+    elements.showSideBarBtn.style.display = "block"; //while the sidebar is hidden, the showSideBarButton comes into display by being rendered as a block level element
+  }
 }
 
 function toggleTheme() {
