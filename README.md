@@ -1,3 +1,24 @@
+### Disego Mogale
+
+The purpose of this project was to debugg the code giveen of an Agile Board (Kanban Board) and add our own code that adds functionality to buttons and allowws users to drag and drop taskss on the board. 
+
+
+# Hurdles
+- Familiarity with JavaScript
+- Time management
+- Syncing the JavaScript and getting it to work
+
+# Resources:
+- https://github.com/PawanKolhe/BoardX/tree/main/src/js
+- https://dev.to/whitep4nth3r/the-best-lightdark-mode-theme-toggle-in-javascript-368f
+- Fellow Student's Assistance
+- https://codepen.io/aaronmcg/pen/GRjaRva
+- https://www.youtube.com/watch?v=ijQ6dCughW8
+- ChatGPT
+
+# Links
+- 
+
 ### [JSL11] Agile Board - Kanban Task Management App
 
 Welcome to the Agile Board project, the final project for the JSL course! In this portfolio piece project, you will be stepping into the shoes of a juniour developer tasked with bringing a Kanban Task Management App to life. You're not starting from scratch, though. In this project, you are tasked with tackling the provided user stories to both identify and fix bugs in the code, as well as to develop your own functions to extend the application's capabilities. Key assignments include importing utility functions, initializing data, and diving into debugging tasks such as setting up data correctly in local storage, dynamically displaying boards and tasks, and enhancing user interactions.
