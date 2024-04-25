@@ -16,7 +16,7 @@ function initializeData() {
     console.log('Data already exists in localStorage');
   }
 }
-initializeData()
+initializeData();
 
 // TASK: Get elements from the DOM
 /* elements were retrieved using the search function. since "elements" is an object, searching for "element." would
@@ -73,26 +73,33 @@ function displayBoards(boards) {
 
 }
 
+const columns = {
+  todo: "TODO",
+  doing: "DOING",
+  done: "DONE"
+}
+
 // Filters tasks corresponding to the board name and displays them on the DOM.
 // TASK: Fix Bugs
 function filterAndDisplayTasksByBoard(boardName) {
   const tasks = getTasks(); // Fetch tasks from a simulated local storage function
-  const filteredTasks = tasks.filter(task => task.board = boardName);
+  const filteredTasks = tasks.filter(task => task.board === boardName); //"===" should be used for comparisson instead of "=" to avoid unintentionally altering data
 
   // Ensure the column titles are set outside of this function or correctly initialized before this function runs
 
   elements.columnDivs.forEach(column => {
     const status = column.getAttribute("data-status");
     // Reset column content while preserving the column title
+    const colmunTitles = columns[status]
     column.innerHTML = `<div class="column-head-div">
                           <span class="dot" id="${status}-dot"></span>
-                          <h4 class="columnHeader">${status.toUpperCase()}</h4>
+                          <h4 class="columnHeader">${colmunTitles}</h4>
                         </div>`;
 
     const tasksContainer = document.createElement("div");
     column.appendChild(tasksContainer);
 
-    filteredTasks.filter(task => task.status = status).forEach(task => { 
+    filteredTasks.filter(task => task.status === status).forEach(task => {  //"===" should be used for comparisson instead of "=" to avoid unintentionally altering data
       const taskElement = document.createElement("div");
       taskElement.classList.add("task-div");
       taskElement.textContent = task.title;
@@ -116,13 +123,13 @@ function refreshTasksUI() {
 // Styles the active board by adding an active class
 // TASK: Fix Bugs
 function styleActiveBoard(boardName) {
-  document.querySelectorAll('.board-btn').foreach(btn => { 
+  document.querySelectorAll('.board-btn').forEach(btn => { //the correct method is forEach not foreach
     
     if(btn.textContent === boardName) {
       btn.add('active') 
     }
     else {
-      btn.remove('active'); 
+      btn.classList.remove('active'); //Correct method to remove class is to use .classlist.remove(). the classList property of a DOM element is used to manipulate its CSS classes
     }
   });
 }
@@ -219,7 +226,7 @@ function addTask(event) {
 
 
 function toggleSidebar(show) {
- 
+  
 }
 
 function toggleTheme() {
