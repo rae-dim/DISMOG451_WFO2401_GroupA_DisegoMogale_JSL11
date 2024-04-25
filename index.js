@@ -265,33 +265,54 @@ function openEditTaskModal(task) {
   status.value = task.status;
 
   // Get button elements from the task modal
-  const deleteTaskbtn = document.getElementById("delete-task-btn");
   const saveTaskChangesBtn = document.getElementById("save-task-changes-btn")
+  const deleteTaskbtn = document.getElementById("delete-task-btn");
 
   // Call saveTaskChanges upon click of Save Changes button
   saveTaskChangesBtn.addEventListener('click', function saveTask(){
     saveTaskChanges(task.id);
     saveTaskChangesBtn.removeEventListener('click', saveTask); // Remove event listener to avoid duplication
-  });
+  }); //!come back!!
 
   // Delete task using a helper function and close the task modal
+  const deleteTaskHandler = () => {
+    deleteTask(task.id);
+    toggleModal(false, elements.editTaskModal); // Close the modal
+    elements.filterDiv.style.display = 'none'; 
+    refreshTasksUI(); // Refresh user interface
+    deleteTaskbtn.removeEventListener('click', deleteTaskHandler); // Avoid duplicate event listeners
+    deleteTaskbtn.disabled = true; // Disable the delete button
+  };
+
+  // Ensure the delete button is enabled and add an event listener
+  deleteTaskbtn.disabled = false;
+  deleteTaskbtn.addEventListener('click', deleteTaskHandler);
+
 
 
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
+  elements.filterDiv.style.display = 'block'; 
 }
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
-  
+  const newTitleInput = document.getElementById('edit-task-title-input').value;
+  const newDescriptionInput = document.getElementById('edit-task-desc-input').value;
+  const newStatusInput = document.getElementById('edit-select-status').value;
 
   // Create an object with the updated task details
-
+ const newUpdatedTask = {
+  title: newTitleInput,
+  description: newDescriptionInput,
+  status: newStatusInput,
+  board: activeBoard
+ }
 
   // Update task using a hlper functoin
- 
+ patchTask(taskId, newUpdatedTask);
 
   // Close the modal and refresh the UI to reflect the changes
-
+  elements.editTaskModalWindow.style.display = "none";
   refreshTasksUI();
 }
 
