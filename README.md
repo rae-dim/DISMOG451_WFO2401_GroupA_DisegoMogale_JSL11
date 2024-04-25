@@ -14,6 +14,7 @@ The purpose of this project was to debugg the code giveen of an Agile Board (Kan
 - Fellow Student's Assistance
 - https://codepen.io/aaronmcg/pen/GRjaRva
 - https://www.youtube.com/watch?v=ijQ6dCughW8
+- ChatGPT
 
 # Links
 - 
