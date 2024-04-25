@@ -30,7 +30,7 @@ const elements = {
   showSideBarBtn: document.getElementById("show-side-bar-btn"),
   themeSwitch: document.getElementById("switch"),
   createNewTaskBtn: document.getElementById("add-new-task-btn"),
-  modalWindow: document.getAnimations("new-task-modal-window"),
+  modalWindow: document.getElementById("new-task-modal-window"),
   
 }
 
@@ -57,7 +57,7 @@ function fetchAndDisplayBoardsAndTasks() {
 // TASK: Fix Bugs
 function displayBoards(boards) {
   const boardsContainer = document.getElementById("boards-nav-links-div");
-  boardsContainer.innerHTML = ''; //! Clears the container
+  boardsContainer.innerHTML = ''; 
   boards.forEach(board => {
     const boardElement = document.createElement("button");
     boardElement.textContent = board;
@@ -127,7 +127,7 @@ function styleActiveBoard(boardName) {
   document.querySelectorAll('.board-btn').forEach(btn => { //the correct method is forEach not foreach
     
     if(btn.textContent === boardName) {
-      btn.add('active') 
+      btn.classList.add('active') 
     }
     else {
       btn.classList.remove('active'); //Correct method to remove class is to use .classlist.remove(). the classList property of a DOM element is used to manipulate its CSS classes
@@ -137,7 +137,7 @@ function styleActiveBoard(boardName) {
 
 
 function addTaskToUI(task) {
-  const column = document.querySelector('.column-div[data-status="${task.status}"]'); 
+  const column = document.querySelector(`.column-div[data-status="${task.status}"]`); 
   if (!column) {
     console.error(`Column not found for status: ${task.status}`);
     return;
@@ -223,7 +223,7 @@ function addTask(event) {  //functio adds new tasks based on the users input
     };
     const newTask = createNewTask(task);
     if (newTask) {
-      addTaskToUI(newTask); //if a new task is successfully created using the createNewwTask fuunction, it is added to the user interface
+      addTaskToUI(newTask); //if a new task is successfully created using the createNewTask function, it is added to the user interface
       toggleModal(false);
       elements.filterDiv.style.display = 'none'; // Also hide the filter overlay
       event.target.reset();
@@ -234,16 +234,15 @@ function addTask(event) {  //functio adds new tasks based on the users input
 
 function toggleSidebar(show) {
   const sidebar = document.getElementById("side-bar-div");
-  const showSideBarBtn  = elements.showSideBarBtn;
   
-  elements.sidebar.style.display = show ? "block" : "none"; //the sidebar is rendered as a block-level element, thus making it visible else it is hidden
+  sidebar.style.display = show ? "block" : "none"; //the sidebar is rendered as a block-level element, thus making it visible else it is hidden
   elements.showSideBarBtn.style.display = show? "none" : "block"; //while the sidebar is in display, the button is hidden, else it is displayed
   
-}
+} 
 
 function toggleTheme() {
   const lightThemeEnabled = elements.themeSwitch.checked; 
-  const themeState = lightThemeEnabled ? 'enabled' + "./assets/logoo-light.svg" : 'disabled' + "./assets/logo-dark.svg"; 
+  const themeState = lightThemeEnabled ? 'enabled' : 'disabled'; 
   
   localStorage.setItem('light-theme', themeState);
  
@@ -266,10 +265,14 @@ function openEditTaskModal(task) {
   status.value = task.status;
 
   // Get button elements from the task modal
-
+  const deleteTaskbtn = document.getElementById("delete-task-btn");
+  const saveTaskChangesBtn = document.getElementById("save-task-changes-btn")
 
   // Call saveTaskChanges upon click of Save Changes button
- 
+  saveTaskChangesBtn.addEventListener('click', function saveTask(){
+    saveTaskChanges(task.id);
+    saveTaskChangesBtn.removeEventListener('click', saveTask); // Remove event listener to avoid duplication
+  });
 
   // Delete task using a helper function and close the task modal
 
